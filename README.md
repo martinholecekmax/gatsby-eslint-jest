@@ -150,6 +150,7 @@ npm i eslint-plugin-jest --save-dev
 After you've installed the ESLint plugin, you'll need to add the following configuration to your `.eslintrc.js` file to tell ESLint to use the Jest plugin:
 
 ```javascript
+// .eslintrc.js
 module.exports = {
   globals: {
     __PATH_PREFIX__: true,
@@ -164,6 +165,7 @@ module.exports = {
 You should now see that ESLint is throwing errors for the example test that we created earlier. I've intentionally added a test that will fail to show you how ESLint will catch these errors. To fix the errors, you can change the `test` function to `it` and add `expect.assertions()` to the test.
 
 ```javascript
+// src/__tests__/example.test.js
 describe(`example`, () => {
   it(`should pass`, () => {
     expect.hasAssertions();
@@ -214,6 +216,18 @@ Please refer to the [Gatsby TypeScript tutorial](https://www.gatsbyjs.com/docs/h
 
 In this blog post, we've learned how to set up ESLint and Jest with Gatsby. We've also learned how to set up ESLint and Jest to work together.
 
+You can find the code for this blog post on [GitHub](https://github.com/martinholecekmax/gatsby-eslint-jest).
+
 If you have any questions or comments, please let me know in the comments below. I'd love to hear your thoughts.
 
 Happy coding! 🚀
+
+## Resources
+
+- [GitHub project](https://github.com/martinholecekmax/gatsby-eslint-jest)
+- [VS code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Gatsby ESLint tutorial](https://www.gatsbyjs.com/docs/how-to/custom-configuration/eslint/)
+- [Gatsby Jest tutorial](https://www.gatsbyjs.com/docs/how-to/testing/unit-testing/)
+- [Gatsby TypeScript tutorial](https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/)
+- [ESLint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
