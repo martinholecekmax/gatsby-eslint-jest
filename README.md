@@ -364,3 +364,4 @@ Happy coding! 🚀
 - [Gatsby TypeScript tutorial](https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/)
 - [ESLint](https://eslint.org/)
 - [Jest](https://jestjs.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
