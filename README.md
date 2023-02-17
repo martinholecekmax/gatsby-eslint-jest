@@ -361,6 +361,7 @@ Happy coding! 🚀
 - [VS code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Gatsby ESLint tutorial](https://www.gatsbyjs.com/docs/how-to/custom-configuration/eslint/)
 - [Gatsby Jest tutorial](https://www.gatsbyjs.com/docs/how-to/testing/unit-testing/)
+- [Gatsby Testing React Components tutorial](https://www.gatsbyjs.com/docs/how-to/testing/testing-react-components/)
 - [Gatsby TypeScript tutorial](https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/)
 - [ESLint](https://eslint.org/)
 - [Jest](https://jestjs.io/)
