@@ -6,5 +6,6 @@ module.exports = {
   rules: {
     'prefer-const': 'error',
     'jest/prefer-expect-assertions': 'off',
+    'jest/no-hooks': 'off',
   },
 };

@@ -190,6 +190,139 @@ module.exports = {
 };
 ```
 
+## Testing React Components
+
+Now that we have ESLint and Jest working correctly, we can start testing our React components. To do this, we'll need to install the following packages:
+
+```bash
+npm install --save-dev @testing-library/react @testing-library/jest-dom jest-environment-jsdom @testing-library/user-event
+```
+
+After you've installed the packages, you'll need to create a new file called `setup-test-env.js` in the root directory of your project. This file will contain the import of the `jest-dom` package which will allow us to use it in our tests.
+
+```javascript
+// setup-test-env.js
+import '@testing-library/jest-dom';
+```
+
+You'll also need to add the following configuration to your `jest.config.js` file to tell Jest to use the `jsdom` environment and to use the `setup-test-env.js` file that we created earlier:
+
+```javascript
+// jest.config.js
+module.exports = {
+  transform: {
+    '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`,
+  },
+  moduleNameMapper: {
+    '.+\\.(css|styl|less|sass|scss)$': `identity-obj-proxy`,
+    '.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': `<rootDir>/__mocks__/file-mock.js`,
+  },
+  testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
+  transformIgnorePatterns: [
+    `node_modules/(?!(gatsby|gatsby-script|gatsby-link)/)`,
+  ],
+  globals: {
+    __PATH_PREFIX__: ``,
+  },
+  testEnvironment: `jsdom`,
+  testEnvironmentOptions: {
+    url: `http://localhost`,
+  },
+  setupFiles: [`<rootDir>/loadershim.js`],
+  setupFilesAfterEnv: ['<rootDir>/setup-test-env.js'],
+};
+```
+
+Now, we can start writing tests for our React components. To do this, we'll need to create a new directory called `components` in the `src` directory of our project. Then, we can create a new file called `Counter.js` in the `components` directory. This file will contain the following code:
+
+```javascript
+// src/components/Counter.js
+import React from 'react';
+
+const Counter = () => {
+  const [count, setCount] = React.useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <h1>Counter</h1>
+      <p>Current count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+We can now import the `Counter` component into the `index.js` file and render it on the page. This will allow us to test the component.
+
+```javascript
+// src/pages/index.js
+import * as React from 'react';
+import Counter from '../components/Counter';
+
+const IndexPage = () => {
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <Counter />
+    </div>
+  );
+};
+
+export default IndexPage;
+
+export const Head = () => <title>Home Page</title>;
+```
+
+Next, we can create a new directory called `__tests__` in the `src/components` directory of our project. Inside this directory, we can create a new file called `Counter.test.js` which will contain the following code:
+
+```javascript
+// src/components/__tests__/Counter.test.js
+import React from 'react';
+import { render, screen, cleanup } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Counter from '../Counter';
+
+describe('counter', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  it('counter increments the count', async () => {
+    render(<Counter />);
+    const user = userEvent.setup();
+    const counter = screen.getByText(/Current count/i);
+    expect(counter).toHaveTextContent('Current count: 0');
+    await user.click(screen.getByText(/Increment/i));
+    expect(counter).toHaveTextContent('Current count: 1');
+  });
+});
+```
+
+In this file, we're using the `@testing-library/react` package to render the `Counter` component and to get the elements that we want to test.
+
+We're also using the `@testing-library/user-event` package to simulate user events such as clicking on buttons.
+
+For more information on how to use the `@testing-library/react` package, you can check out the [official documentation](https://testing-library.com/docs/react-testing-library/intro).
+
+We can now run the following command to run our tests:
+
+```bash
+npm run test
+```
+
+In the terminal, you should see that the test has passed.
+
 ## Some other issues
 
 I've run into a few other issues while setting up ESLint and Jest with Gatsby which have been related to my project's configuration. You may run into some of these issues as well, so I've included some of the solutions that I've found below.
